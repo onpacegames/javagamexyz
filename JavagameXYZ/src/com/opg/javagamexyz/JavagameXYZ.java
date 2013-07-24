@@ -24,5 +24,10 @@ public class JavagameXYZ extends Game {
 			
 			public static final String TITLE = "JavagameXYZ";
 		}
+		
+		public static class Groups {
+			public static final String PLAYER_BULLETS = "player bullets";
+			public static final String ENEMY_SHIPS = "enemy ships";
+		}
 	}
 }

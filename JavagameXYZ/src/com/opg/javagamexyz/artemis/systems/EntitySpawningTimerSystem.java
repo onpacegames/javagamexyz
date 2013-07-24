@@ -21,8 +21,10 @@ public class EntitySpawningTimerSystem extends VoidEntitySystem {
 					world,
 					"enemy1",
 					Layer.ACTORS_3,
+					10,
 					MathUtils.random(0, JavagameXYZ.Constants.Game.FRAME_WIDTH), JavagameXYZ.Constants.Game.FRAME_HEIGHT + 50,
-					0, -40
+					0, -40,
+					20
 				).addToWorld();
 			}
 		};
@@ -35,8 +37,10 @@ public class EntitySpawningTimerSystem extends VoidEntitySystem {
 					world,
 					"enemy2",
 					Layer.ACTORS_2,
+					20,
 					MathUtils.random(0, JavagameXYZ.Constants.Game.FRAME_WIDTH), JavagameXYZ.Constants.Game.FRAME_HEIGHT + 100,
-					0, -30
+					0, -30,
+					40
 				).addToWorld();
 			}
 		};
@@ -49,8 +53,10 @@ public class EntitySpawningTimerSystem extends VoidEntitySystem {
 					world,
 					"enemy3",
 					Layer.ACTORS_1,
+					60,
 					MathUtils.random(0, JavagameXYZ.Constants.Game.FRAME_WIDTH), JavagameXYZ.Constants.Game.FRAME_HEIGHT + 200,
-					0, -20
+					0, -20,
+					70
 				).addToWorld();
 			}
 		};

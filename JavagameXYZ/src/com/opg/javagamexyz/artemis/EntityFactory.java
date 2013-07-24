@@ -2,8 +2,12 @@ package com.opg.javagamexyz.artemis;
 
 import com.artemis.Entity;
 import com.artemis.World;
+import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.graphics.Color;
+import com.opg.javagamexyz.JavagameXYZ.Constants;
+import com.opg.javagamexyz.artemis.components.Bounds;
 import com.opg.javagamexyz.artemis.components.Expires;
+import com.opg.javagamexyz.artemis.components.Health;
 import com.opg.javagamexyz.artemis.components.Player;
 import com.opg.javagamexyz.artemis.components.Position;
 import com.opg.javagamexyz.artemis.components.Sprite;
@@ -27,6 +31,9 @@ public class EntityFactory {
 		Player player = new Player();
 		e.addComponent(player);
 		
+		Bounds bounds = new Bounds(43);
+		e.addComponent(bounds);
+		
 		return e;
 	}
 	
@@ -45,10 +52,15 @@ public class EntityFactory {
 		Expires expires = new Expires(2.0f);
 		e.addComponent(expires);
 		
+		Bounds bounds = new Bounds(5);
+		e.addComponent(bounds);
+		
+		world.getManager(GroupManager.class).add(e, Constants.Groups.PLAYER_BULLETS);
+		
 		return e;
 	}
 	
-	public static Entity createEnemyShip(World world, String name, Layer layer, float x, float y, float vx, float vy) {
+	public static Entity createEnemyShip(World world, String name, Layer layer, float health, float x, float y, float vx, float vy, float boundsRadius) {
 		Entity e = world.createEntity();
 		
 		Position position = new Position(x, y);
@@ -60,6 +72,14 @@ public class EntityFactory {
 		
 		Velocity velocity = new Velocity(vx, vy);
 		e.addComponent(velocity);
+		
+		Health h = new Health(health);
+		e.addComponent(h);
+		
+		Bounds bounds = new Bounds(boundsRadius);
+		e.addComponent(bounds);
+		
+		world.getManager(GroupManager.class).add(e, Constants.Groups.ENEMY_SHIPS);
 		
 		return e;
 	}

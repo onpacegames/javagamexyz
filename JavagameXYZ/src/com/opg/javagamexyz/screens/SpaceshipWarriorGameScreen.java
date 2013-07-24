@@ -1,11 +1,14 @@
 package com.opg.javagamexyz.screens;
 
 import com.artemis.World;
+import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.opg.javagamexyz.JavagameXYZ;
 import com.opg.javagamexyz.artemis.EntityFactory;
+import com.opg.javagamexyz.artemis.systems.CollisionSystem;
 import com.opg.javagamexyz.artemis.systems.EntitySpawningTimerSystem;
 import com.opg.javagamexyz.artemis.systems.ExpiringSystem;
 import com.opg.javagamexyz.artemis.systems.MovementSystem;
@@ -23,9 +26,11 @@ public class SpaceshipWarriorGameScreen extends JavaGameXYZScreen {
 		super(game);
 		
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false);
+		camera.setToOrtho(false, JavagameXYZ.Constants.Game.FRAME_WIDTH, JavagameXYZ.Constants.Game.FRAME_HEIGHT);
 		
 		world = new World();
+		
+		world.setManager(new GroupManager());
 		
 		spriteRenderSystem = world.setSystem(new SpriteRenderSystem(camera), true);
 		
@@ -33,6 +38,7 @@ public class SpaceshipWarriorGameScreen extends JavaGameXYZScreen {
 		world.setSystem(new MovementSystem());
 		world.setSystem(new ExpiringSystem());
 		world.setSystem(new EntitySpawningTimerSystem());
+		world.setSystem(new CollisionSystem());
 		
 		world.initialize();
 		
