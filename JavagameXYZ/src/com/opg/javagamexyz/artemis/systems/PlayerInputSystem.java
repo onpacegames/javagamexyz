@@ -58,8 +58,8 @@ public class PlayerInputSystem extends EntityProcessingSystem implements InputPr
 		
 		if (shoot) {
 			if (timeToFire <= 0) {
-				EntityFactory.createBullet(world, position.x + 7, position.y + 40).addToWorld();
-				EntityFactory.createBullet(world, position.x + 60, position.y + 40).addToWorld();
+				EntityFactory.createBullet(world, position.x - 27, position.y + 7).addToWorld();
+				EntityFactory.createBullet(world, position.x + 27, position.y + 7).addToWorld();
 				timeToFire = fireRate;
 			}
 		}

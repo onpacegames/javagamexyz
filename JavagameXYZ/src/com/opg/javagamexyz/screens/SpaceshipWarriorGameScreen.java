@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.opg.javagamexyz.artemis.EntityFactory;
+import com.opg.javagamexyz.artemis.systems.EntitySpawningTimerSystem;
 import com.opg.javagamexyz.artemis.systems.ExpiringSystem;
 import com.opg.javagamexyz.artemis.systems.MovementSystem;
 import com.opg.javagamexyz.artemis.systems.PlayerInputSystem;
@@ -21,7 +22,8 @@ public class SpaceshipWarriorGameScreen extends JavaGameXYZScreen {
 	public SpaceshipWarriorGameScreen(Game game) {
 		super(game);
 		
-		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false);
 		
 		world = new World();
 		
@@ -30,6 +32,7 @@ public class SpaceshipWarriorGameScreen extends JavaGameXYZScreen {
 		world.setSystem(new PlayerInputSystem(camera));
 		world.setSystem(new MovementSystem());
 		world.setSystem(new ExpiringSystem());
+		world.setSystem(new EntitySpawningTimerSystem());
 		
 		world.initialize();
 		
