@@ -74,10 +74,9 @@ public class SpriteRenderSystem extends EntitySystem {
 	}
 
 	protected void process(Entity e) {
-		// TODO is this necessary?
-		if (pm.has(e)) {
-			// TODO getSafe(...) necessary?
-			Position position = pm.getSafe(e);
+		//if (pm.has(e)) {
+			//Position position = pm.getSafe(e);
+			Position position = pm.get(e);
 			Sprite sprite = sm.get(e);
 			
 			AtlasRegion region = regionsByEntity.get(e.getId());
@@ -94,7 +93,7 @@ public class SpriteRenderSystem extends EntitySystem {
 				sprite.scaleX, sprite.scaleY,
 				sprite.rotation
 			);
-		}
+		//}
 	}
 	
 	@Override
@@ -121,7 +120,6 @@ public class SpriteRenderSystem extends EntitySystem {
 	
 	@Override
 	protected void removed(Entity e) {
-		// TODO why not regionsByEntity.remove(e.getId());
 		regionsByEntity.set(e.getId(), null);
 		sortedEntities.remove(e);
 	}

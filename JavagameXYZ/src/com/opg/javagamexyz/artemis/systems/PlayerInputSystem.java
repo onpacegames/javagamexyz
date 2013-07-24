@@ -65,10 +65,9 @@ public class PlayerInputSystem extends EntityProcessingSystem implements InputPr
 		}
 		if (timeToFire > 0) {
 			timeToFire -= world.delta;
-			// TODO necessary?
-			if (timeToFire < 0) {
+			/*if (timeToFire < 0) {
 				timeToFire = 0;
-			}
+			}*/
 		}
 	}
 

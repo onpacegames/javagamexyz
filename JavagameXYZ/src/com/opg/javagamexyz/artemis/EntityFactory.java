@@ -17,7 +17,6 @@ import com.opg.javagamexyz.artemis.components.Sprite;
 import com.opg.javagamexyz.artemis.components.Sprite.Layer;
 import com.opg.javagamexyz.artemis.components.Velocity;
 
-// TODO remove lots of "new" usage
 public class EntityFactory {
 	public static Entity createPlayer(World world, float x, float y) {
 		Entity e = world.createEntity();
