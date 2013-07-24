@@ -57,6 +57,7 @@ public class EntityFactory {
 		SpriteAnimation anim = new SpriteAnimation();
 		anim.playMode = Animation.LOOP_PINGPONG;
 		anim.frameDuration = 0.1f;
+		anim.stateTime = MathUtils.random();
 		e.addComponent(anim);
 		
 		return e;

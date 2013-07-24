@@ -18,7 +18,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.opg.javagamexyz.artemis.components.Position;
 import com.opg.javagamexyz.artemis.components.Sprite;
@@ -83,23 +82,16 @@ public class SpriteRenderSystem extends EntitySystem {
 			Position position = pm.get(e);
 			Sprite sprite = sm.get(e);
 			
-			TextureRegion spriteRegion = sprite.region;
-			
-			int spriteRegionWidth = spriteRegion.getRegionWidth();
-			int spriteRegionHeight = spriteRegion.getRegionHeight();
-			
-			sprite.region.setRegion(sprite.x, sprite.y, spriteRegionWidth, spriteRegionHeight);
-			
-			float posX = position.x - spriteRegionWidth / 2 * sprite.scaleX;
-			float posY = position.y - spriteRegionHeight / 2 * sprite.scaleY;
+			float posX = position.x - sprite.region.getRegionWidth() / 2 * sprite.scaleX;
+			float posY = position.y - sprite.region.getRegionHeight() / 2 * sprite.scaleY;
 			
 			batch.setColor(sprite.r, sprite.g, sprite.b, sprite.a);
 			
 			batch.draw(
-				spriteRegion,
+				sprite.region,
 				posX, posY,
 				0, 0,
-				spriteRegionWidth, spriteRegionHeight,
+				sprite.region.getRegionWidth(), sprite.region.getRegionHeight(),
 				sprite.scaleX, sprite.scaleY,
 				sprite.rotation
 			);
@@ -116,14 +108,10 @@ public class SpriteRenderSystem extends EntitySystem {
 		Sprite sprite = sm.get(e);
 		sortedEntities.add(e);
 		
+		// TODO this code can be moved into the Animation system with a resource/asset manager
 		Array<AtlasRegion> spriteAtlasRegions = atlasRegions.get(sprite.name);
 		
-		TextureRegion reg = spriteAtlasRegions.first();
-		sprite.region = reg;
-		sprite.x = reg.getRegionX();
-		sprite.y = reg.getRegionY();
-		sprite.width = reg.getRegionWidth();
-		sprite.height = reg.getRegionHeight();
+		sprite.region = spriteAtlasRegions.first();
 		
 		if (sam.has(e)) {
 			SpriteAnimation anim = sam.get(e);

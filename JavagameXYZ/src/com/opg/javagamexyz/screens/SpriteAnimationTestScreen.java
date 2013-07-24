@@ -6,6 +6,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 import com.opg.javagamexyz.JavagameXYZ;
 import com.opg.javagamexyz.artemis.EntityFactory;
 import com.opg.javagamexyz.artemis.systems.HudRenderSystem;
@@ -37,7 +38,9 @@ public class SpriteAnimationTestScreen extends JavagameXYZScreen {
 		
 		world.initialize();
 		
-		EntityFactory.createClaude(world, JavagameXYZ.Constants.Game.FRAME_WIDTH / 2, JavagameXYZ.Constants.Game.FRAME_HEIGHT / 2).addToWorld();
+		for (int i = 0; i < 50; i++) {
+			EntityFactory.createClaude(world, MathUtils.random(0, JavagameXYZ.Constants.Game.FRAME_WIDTH), MathUtils.random(0, JavagameXYZ.Constants.Game.FRAME_HEIGHT)).addToWorld();
+		}
 		
 		EntityFactory.createPlayer(world, 150, 150).addToWorld();
 	}
