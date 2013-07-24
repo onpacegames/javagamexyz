@@ -8,28 +8,19 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.opg.javagamexyz.JavagameXYZ;
 import com.opg.javagamexyz.artemis.EntityFactory;
-import com.opg.javagamexyz.artemis.systems.CollisionSystem;
-import com.opg.javagamexyz.artemis.systems.ColorAnimationSystem;
-import com.opg.javagamexyz.artemis.systems.EntitySpawningTimerSystem;
-import com.opg.javagamexyz.artemis.systems.ExpiringSystem;
-import com.opg.javagamexyz.artemis.systems.HealthRenderSystem;
 import com.opg.javagamexyz.artemis.systems.HudRenderSystem;
-import com.opg.javagamexyz.artemis.systems.MovementSystem;
-import com.opg.javagamexyz.artemis.systems.ParallaxStarRepeatingSystem;
-import com.opg.javagamexyz.artemis.systems.PlayerInputSystem;
-import com.opg.javagamexyz.artemis.systems.ScaleAnimationSystem;
+import com.opg.javagamexyz.artemis.systems.SpriteAnimationSystem;
 import com.opg.javagamexyz.artemis.systems.SpriteRenderSystem;
 
-public class SpaceshipWarriorGameScreen extends JavagameXYZScreen {
+public class SpriteAnimationTestScreen extends JavagameXYZScreen {
 	protected OrthographicCamera camera;
 	
 	protected World world;
 	
 	protected SpriteRenderSystem spriteRenderSystem;
-	protected HealthRenderSystem healthRenderingSystem;
 	protected HudRenderSystem hudRenderingSystem;
 	
-	public SpaceshipWarriorGameScreen(Game game) {
+	public SpriteAnimationTestScreen(Game game) {
 		super(game);
 		
 		camera = new OrthographicCamera();
@@ -40,25 +31,15 @@ public class SpaceshipWarriorGameScreen extends JavagameXYZScreen {
 		world.setManager(new GroupManager());
 		
 		spriteRenderSystem = world.setSystem(new SpriteRenderSystem(camera), true);
-		healthRenderingSystem = world.setSystem(new HealthRenderSystem(camera), true);
 		hudRenderingSystem = world.setSystem(new HudRenderSystem(camera), true);
 		
-		world.setSystem(new PlayerInputSystem(camera));
-		world.setSystem(new MovementSystem());
-		world.setSystem(new ExpiringSystem());
-		world.setSystem(new EntitySpawningTimerSystem());
-		world.setSystem(new CollisionSystem());
-		world.setSystem(new ColorAnimationSystem());
-		world.setSystem(new ScaleAnimationSystem());
-		world.setSystem(new ParallaxStarRepeatingSystem());
+		world.setSystem(new SpriteAnimationSystem());
 		
 		world.initialize();
 		
-		EntityFactory.createPlayer(world, 150, 150).addToWorld();
+		EntityFactory.createClaude(world, JavagameXYZ.Constants.Game.FRAME_WIDTH / 2, JavagameXYZ.Constants.Game.FRAME_HEIGHT / 2).addToWorld();
 		
-		for (int i = 0; i < 500; i++) {
-			EntityFactory.createStar(world).addToWorld();
-		}
+		EntityFactory.createPlayer(world, 150, 150).addToWorld();
 	}
 
 	@Override
@@ -72,7 +53,6 @@ public class SpaceshipWarriorGameScreen extends JavagameXYZScreen {
 		world.process();
 		
 		spriteRenderSystem.process();
-		healthRenderingSystem.process();
 		hudRenderingSystem.process();
 	}
 

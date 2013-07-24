@@ -12,7 +12,7 @@ bullet
   index: -1
 default
   rotate: false
-  xy: 587, 146
+  xy: 587, 84
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -61,8 +61,43 @@ particle
   index: -1
 star
   rotate: false
-  xy: 515, 54
+  xy: 711, 274
   size: 18, 20
   orig: 18, 20
   offset: 0, 0
   index: -1
+warrior
+  rotate: false
+  xy: 515, 14
+  size: 32, 60
+  orig: 32, 60
+  offset: 0, 0
+  index: 0
+warrior
+  rotate: false
+  xy: 587, 102
+  size: 32, 60
+  orig: 32, 60
+  offset: 0, 0
+  index: 1
+warrior
+  rotate: false
+  xy: 663, 186
+  size: 32, 60
+  orig: 32, 60
+  offset: 0, 0
+  index: 2
+warrior
+  rotate: false
+  xy: 549, 14
+  size: 32, 60
+  orig: 32, 60
+  offset: 0, 0
+  index: 3
+warrior
+  rotate: false
+  xy: 621, 102
+  size: 32, 60
+  orig: 32, 60
+  offset: 0, 0
+  index: 4

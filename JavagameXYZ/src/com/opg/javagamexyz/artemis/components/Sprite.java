@@ -1,6 +1,7 @@
 package com.opg.javagamexyz.artemis.components;
 
 import com.artemis.Component;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Sprite extends Component {
 	public enum Layer {
@@ -17,10 +18,13 @@ public class Sprite extends Component {
 	}
 	
 	public String name;
+	public  TextureRegion region;
 	public float r, g, b, a;
 	public float scaleX, scaleY;
 	public float rotation;
 	public Layer layer;
+	public int x, y;
+	public int width, height;
 	
 	public Sprite() {
 		this("default", Layer.DEFAULT);

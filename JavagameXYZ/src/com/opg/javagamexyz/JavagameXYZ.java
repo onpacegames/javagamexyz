@@ -2,12 +2,13 @@ package com.opg.javagamexyz;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.opg.javagamexyz.screens.SpaceshipWarriorGameScreen;
+import com.opg.javagamexyz.screens.SpriteAnimationTestScreen;
 
 public class JavagameXYZ extends Game {
 	@Override
 	public void create() {
-		setScreen(new SpaceshipWarriorGameScreen(this));
+		//setScreen(new SpaceshipWarriorGameScreen(this));
+		setScreen(new SpriteAnimationTestScreen(this));
 	}
 	
 	@Override

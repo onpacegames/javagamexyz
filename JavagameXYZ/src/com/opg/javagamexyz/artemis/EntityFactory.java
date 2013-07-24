@@ -3,6 +3,7 @@ package com.opg.javagamexyz.artemis;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.artemis.managers.GroupManager;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.MathUtils;
 import com.opg.javagamexyz.JavagameXYZ.Constants;
 import com.opg.javagamexyz.artemis.components.Bounds;
@@ -15,6 +16,7 @@ import com.opg.javagamexyz.artemis.components.Position;
 import com.opg.javagamexyz.artemis.components.ScaleAnimation;
 import com.opg.javagamexyz.artemis.components.Sprite;
 import com.opg.javagamexyz.artemis.components.Sprite.Layer;
+import com.opg.javagamexyz.artemis.components.SpriteAnimation;
 import com.opg.javagamexyz.artemis.components.Velocity;
 
 public class EntityFactory {
@@ -39,6 +41,23 @@ public class EntityFactory {
 		
 		Bounds bounds = new Bounds(43);
 		e.addComponent(bounds);
+		
+		return e;
+	}
+	
+	public static Entity createClaude(World world, float x, float y) {
+		Entity e = world.createEntity();
+		
+		Position position = new Position(x, y);
+		e.addComponent(position);
+		
+		Sprite sprite = new Sprite("warrior", Layer.ACTORS_3);
+		e.addComponent(sprite);
+		
+		SpriteAnimation anim = new SpriteAnimation();
+		anim.playMode = Animation.LOOP_PINGPONG;
+		anim.frameDuration = 0.1f;
+		e.addComponent(anim);
 		
 		return e;
 	}

@@ -11,26 +11,28 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
 import com.artemis.annotations.Mapper;
-import com.artemis.utils.Bag;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 import com.opg.javagamexyz.artemis.components.Position;
 import com.opg.javagamexyz.artemis.components.Sprite;
+import com.opg.javagamexyz.artemis.components.SpriteAnimation;
 
 public class SpriteRenderSystem extends EntitySystem {
 	@Mapper protected ComponentMapper<Position> pm;
 	@Mapper protected ComponentMapper<Sprite> sm;
+	@Mapper protected ComponentMapper<SpriteAnimation> sam;
 	
 	protected OrthographicCamera camera;
 	protected SpriteBatch batch;
 	
-	protected TextureAtlas atlas;
-	protected HashMap<String, AtlasRegion> regions;
-	protected Bag<AtlasRegion> regionsByEntity;
+	protected HashMap<String, Array<AtlasRegion>> atlasRegions;
 	
 	protected List<Entity> sortedEntities;
 	
@@ -45,12 +47,14 @@ public class SpriteRenderSystem extends EntitySystem {
 	protected void initialize() {
 		batch = new SpriteBatch();
 		
-		atlas = new TextureAtlas(Gdx.files.internal("textures/pack.atlas"), Gdx.files.internal("textures"));
-		regions = new HashMap<String, AtlasRegion>();
+		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("textures/pack.atlas"), Gdx.files.internal("textures"));
+		atlasRegions = new HashMap<String, Array<AtlasRegion>>();
 		for (AtlasRegion region : atlas.getRegions()) {
-			regions.put(region.name, region);
+			if (!atlasRegions.containsKey(region.name)) {
+				atlasRegions.put(region.name, new Array<AtlasRegion>());
+			}
+			atlasRegions.get(region.name).add(region);
 		}
-		regionsByEntity = new Bag<AtlasRegion>();
 		
 		sortedEntities = new ArrayList<Entity>();
 	}
@@ -61,16 +65,16 @@ public class SpriteRenderSystem extends EntitySystem {
 	}
 	
 	@Override
-	protected void begin() {
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-	}
-	
-	@Override
 	protected void processEntities(ImmutableBag<Entity> entities) {
 		for (Entity entity : sortedEntities) {
 			process(entity);
 		}
+	}
+	
+	@Override
+	protected void begin() {
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
 	}
 
 	protected void process(Entity e) {
@@ -79,17 +83,23 @@ public class SpriteRenderSystem extends EntitySystem {
 			Position position = pm.get(e);
 			Sprite sprite = sm.get(e);
 			
-			AtlasRegion region = regionsByEntity.get(e.getId());
+			TextureRegion spriteRegion = sprite.region;
+			
+			int spriteRegionWidth = spriteRegion.getRegionWidth();
+			int spriteRegionHeight = spriteRegion.getRegionHeight();
+			
+			sprite.region.setRegion(sprite.x, sprite.y, spriteRegionWidth, spriteRegionHeight);
+			
+			float posX = position.x - spriteRegionWidth / 2 * sprite.scaleX;
+			float posY = position.y - spriteRegionHeight / 2 * sprite.scaleY;
+			
 			batch.setColor(sprite.r, sprite.g, sprite.b, sprite.a);
 			
-			float posX = position.x - region.getRegionWidth() / 2 * sprite.scaleX;
-			float posY = position.y - region.getRegionHeight() / 2 * sprite.scaleY;
-			
 			batch.draw(
-				region,
+				spriteRegion,
 				posX, posY,
 				0, 0,
-				region.getRegionWidth(), region.getRegionHeight(),
+				spriteRegionWidth, spriteRegionHeight,
 				sprite.scaleX, sprite.scaleY,
 				sprite.rotation
 			);
@@ -104,9 +114,21 @@ public class SpriteRenderSystem extends EntitySystem {
 	@Override
 	protected void inserted(Entity e) {
 		Sprite sprite = sm.get(e);
-		regionsByEntity.set(e.getId(), regions.get(sprite.name));
-		
 		sortedEntities.add(e);
+		
+		Array<AtlasRegion> spriteAtlasRegions = atlasRegions.get(sprite.name);
+		
+		TextureRegion reg = spriteAtlasRegions.first();
+		sprite.region = reg;
+		sprite.x = reg.getRegionX();
+		sprite.y = reg.getRegionY();
+		sprite.width = reg.getRegionWidth();
+		sprite.height = reg.getRegionHeight();
+		
+		if (sam.has(e)) {
+			SpriteAnimation anim = sam.get(e);
+			anim.animation = new Animation(anim.frameDuration, spriteAtlasRegions, anim.playMode);
+		}
 		
 		Collections.sort(sortedEntities, new Comparator<Entity>() {
 			@Override
@@ -120,7 +142,6 @@ public class SpriteRenderSystem extends EntitySystem {
 	
 	@Override
 	protected void removed(Entity e) {
-		regionsByEntity.set(e.getId(), null);
 		sortedEntities.remove(e);
 	}
 }
