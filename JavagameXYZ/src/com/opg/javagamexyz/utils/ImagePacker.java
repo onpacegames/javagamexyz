@@ -11,5 +11,6 @@ public class ImagePacker {
 		settings.filterMag = TextureFilter.Linear;
 		settings.pot = false;
 		TexturePacker2.process(settings, "../JavagameXYZ-android/assets/textures-original", "../JavagameXYZ-android/assets/textures", "pack");
+		TexturePacker2.process(settings, "../JavagameXYZ-android/assets/textures/maptiles", "../JavagameXYZ-android/assets/textures", "maptiles");
 	}
 }

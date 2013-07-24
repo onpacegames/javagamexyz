@@ -9,6 +9,7 @@ import com.opg.javagamexyz.JavagameXYZ.Constants;
 import com.opg.javagamexyz.artemis.components.Bounds;
 import com.opg.javagamexyz.artemis.components.ColorAnimation;
 import com.opg.javagamexyz.artemis.components.Expires;
+import com.opg.javagamexyz.artemis.components.GameMap;
 import com.opg.javagamexyz.artemis.components.Health;
 import com.opg.javagamexyz.artemis.components.ParallaxStar;
 import com.opg.javagamexyz.artemis.components.Player;
@@ -206,6 +207,15 @@ public class EntityFactory {
 		colorAnimation.alphaMin = 0.1f;
 		colorAnimation.alphaMax = 0.5f;
 		e.addComponent(colorAnimation);
+		
+		return e;
+	}
+	
+	public static Entity createGameMap(World world) {
+		Entity e = world.createEntity();
+		
+		GameMap gameMap = new GameMap();
+		e.addComponent(gameMap);
 		
 		return e;
 	}
