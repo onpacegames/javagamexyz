@@ -10,6 +10,7 @@ import com.artemis.utils.Bag;
 import com.artemis.utils.ImmutableBag;
 import com.artemis.utils.Utils;
 import com.opg.javagamexyz.JavagameXYZ.Constants;
+import com.opg.javagamexyz.artemis.EntityFactory;
 import com.opg.javagamexyz.artemis.components.Bounds;
 import com.opg.javagamexyz.artemis.components.Health;
 import com.opg.javagamexyz.artemis.components.Position;
@@ -31,16 +32,28 @@ public class CollisionSystem extends EntitySystem {
 		collisionPairs = new Bag<CollisionPair>();
 		
 		collisionPairs.add(new CollisionPair(Constants.Groups.PLAYER_BULLETS, Constants.Groups.ENEMY_SHIPS, new CollisionHandler() {
+			@SuppressWarnings("synthetic-access")
 			@Override
 			public void handleCollision(Entity bullet, Entity enemyShip) {
 				Health health = hm.get(enemyShip);
-				health.health -= 10;
+				Position bp = pm.get(bullet);
+				Position sp = pm.get(enemyShip);
+				Bounds enemyShipBounds = bm.get(enemyShip);
+				health.health -= 1;
 				
-				bullet.deleteFromWorld();
+				EntityFactory.createExplosion(world, bp.x, bp.y, 0.1f).addToWorld();
+				
+				for (int i = 0; i < 50; i++) {
+					EntityFactory.createParticle(world, bp.x, bp.y).addToWorld();
+				}
 				
 				if (health.health <= 0) {
 					enemyShip.deleteFromWorld();
+					// TODO this probably doesn't scale well/isn't a great formula.
+					EntityFactory.createExplosion(world, sp.x, sp.y, enemyShipBounds.radius/100f).addToWorld();
 				}
+				
+				bullet.deleteFromWorld();
 			}
 		}));
 	}

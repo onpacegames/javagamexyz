@@ -10,6 +10,13 @@ bullet
   orig: 3, 10
   offset: 0, 0
   index: -1
+default
+  rotate: false
+  xy: 587, 146
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 enemy1
   rotate: false
   xy: 663, 248

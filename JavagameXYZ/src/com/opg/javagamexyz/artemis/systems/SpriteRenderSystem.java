@@ -81,17 +81,17 @@ public class SpriteRenderSystem extends EntitySystem {
 			Sprite sprite = sm.get(e);
 			
 			AtlasRegion region = regionsByEntity.get(e.getId());
-			batch.setColor(sprite.color);
+			batch.setColor(sprite.r, sprite.g, sprite.b, sprite.a);
 			
-			float posX = position.x - region.getRegionWidth() / 2 * sprite.scale.x;
-			float posY = position.y - region.getRegionHeight() / 2 * sprite.scale.y;
+			float posX = position.x - region.getRegionWidth() / 2 * sprite.scaleX;
+			float posY = position.y - region.getRegionHeight() / 2 * sprite.scaleY;
 			
 			batch.draw(
 				region,
 				posX, posY,
 				0, 0,
 				region.getRegionWidth(), region.getRegionHeight(),
-				sprite.scale.x, sprite.scale.y,
+				sprite.scaleX, sprite.scaleY,
 				sprite.rotation
 			);
 		}

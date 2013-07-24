@@ -1,8 +1,6 @@
 package com.opg.javagamexyz.artemis.components;
 
 import com.artemis.Component;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
 
 public class Sprite extends Component {
 	public enum Layer {
@@ -19,8 +17,8 @@ public class Sprite extends Component {
 	}
 	
 	public String name;
-	public Color color;
-	public Vector2 scale;
+	public float r, g, b, a;
+	public float scaleX, scaleY;
 	public float rotation;
 	public Layer layer;
 	
@@ -36,8 +34,8 @@ public class Sprite extends Component {
 		this.name = name;
 		this.layer = layer;
 		
-		color = Color.WHITE;
-		scale = new Vector2(1, 1);
+		r = g = b = a = 1.0f;
+		scaleX = scaleY = 1.0f;
 		rotation = 0;
 	}
 }
