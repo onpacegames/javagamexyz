@@ -80,7 +80,7 @@ public class MapRenderSystem extends EntityProcessingSystem {
 				
 				x += MapTools.col_multiple;
 				y += MapTools.row_multiple / 2;
-				reg = textures.get(gameMap.map[col][row]);
+				reg = textures.get(gameMap.map[col + 1][row]);
 				batch.draw(
 					reg,
 					x, y,
