@@ -21,7 +21,7 @@ public class JavagameXYZ extends Game {
 	
 	public static class Constants {
 		public static class Game {
-			public static final int FRAME_WIDTH = 1280;
+			public static final int FRAME_WIDTH = 1300;
 			public static final int FRAME_HEIGHT = 720;
 			
 			public static final String TITLE = "JavagameXYZ";

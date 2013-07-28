@@ -12,5 +12,6 @@ public class ImagePacker {
 		settings.pot = false;
 		TexturePacker2.process(settings, "../JavagameXYZ-android/assets/textures-original", "../JavagameXYZ-android/assets/textures", "pack");
 		TexturePacker2.process(settings, "../JavagameXYZ-android/assets/textures/maptiles", "../JavagameXYZ-android/assets/textures", "maptiles");
+		TexturePacker2.process(settings, "../JavagameXYZ-android/assets/textures/characters", "../JavagameXYZ-android/assets/textures", "characters");
 	}
 }

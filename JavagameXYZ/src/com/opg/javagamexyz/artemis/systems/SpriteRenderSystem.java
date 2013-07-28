@@ -46,7 +46,7 @@ public class SpriteRenderSystem extends EntitySystem {
 	protected void initialize() {
 		batch = new SpriteBatch();
 		
-		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("textures/pack.atlas"), Gdx.files.internal("textures"));
+		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("textures/characters.atlas"), Gdx.files.internal("textures"));
 		atlasRegions = new HashMap<String, Array<AtlasRegion>>();
 		for (AtlasRegion region : atlas.getRegions()) {
 			if (!atlasRegions.containsKey(region.name)) {
@@ -82,8 +82,8 @@ public class SpriteRenderSystem extends EntitySystem {
 			Position position = pm.get(e);
 			Sprite sprite = sm.get(e);
 			
-			float posX = position.x - sprite.region.getRegionWidth() / 2 * sprite.scaleX;
-			float posY = position.y - sprite.region.getRegionHeight() / 2 * sprite.scaleY;
+			float posX = 6f + (position.x + 0.5f) * 34 - sprite.region.getRegionWidth() / 2 * sprite.scaleX;
+			float posY = 38 * (0.5f + 0.5f *(position.x % 2) + position.y) - sprite.region.getRegionHeight() / 2 * sprite.scaleY;
 			
 			batch.setColor(sprite.r, sprite.g, sprite.b, sprite.a);
 			

@@ -12,9 +12,6 @@ public class MidpointDisplacement {
 				 hillsThreshold,
 				 mountainsThreshold;
 	
-	public int n;
-	public int wmult, hmult;
-	
 	public float smoothness;
 	
 	public MidpointDisplacement() {
@@ -28,18 +25,11 @@ public class MidpointDisplacement {
 		hillsThreshold = 0.88f;
 		mountainsThreshold = 0.95f;
 		
-		// n partly controls the size of the map but mostly controls the level of detail available
-		n = 7;
-		
-		// wmult and hmult are the width and height multipliers. They set how many separate regions there are
-		wmult = 6;
-		hmult = 4;
-		
 		// Smoothness controls how smooth the resultant terrain is. Higher = more smooth
 		smoothness = 2f;
 	}
 	
-	public int[][] getMap() {
+	public int[][] getMap(int n, int wmult, int hmult) {
 		// Get the dimensions of the map:
 		int power = MyMath.pow(2, n);
 		int width = wmult * power + 1;

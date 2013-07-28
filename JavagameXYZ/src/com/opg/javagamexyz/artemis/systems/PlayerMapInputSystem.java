@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.opg.javagamexyz.artemis.components.Player;
 import com.opg.javagamexyz.artemis.components.Position;
+import com.opg.javagamexyz.custom.Pair;
 import com.opg.javagamexyz.utils.MapTools;
 
 public class PlayerMapInputSystem extends EntityProcessingSystem implements InputProcessor {
@@ -56,8 +57,8 @@ public class PlayerMapInputSystem extends EntityProcessingSystem implements Inpu
 	@SuppressWarnings("unused")
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		int x = (int) ((mouseVector.x - 6f) / MapTools.col_multiple);
-		int y = (int) ((mouseVector.y - (float) MapTools.row_multiple * (x % 2) / 2) / MapTools.row_multiple);
+		// Get the hex cell being clicked
+		Pair<Integer, Integer> coords = MapTools.window2world(Gdx.input.getX(), Gdx.input.getY(), camera);
 		
 		return true;
 	}

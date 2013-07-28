@@ -124,6 +124,9 @@ public class MapRenderSystem extends EntityProcessingSystem {
 				);
 			}
 		}
+		
+		// This line can draw a small image of the whole map
+		// batch.draw(gameMap.texture, 0, 0);
 	}
 	
 	@Override

@@ -2,7 +2,7 @@ package com.opg.javagamexyz.utils;
 
 public class MyMath {
 	public static int min(int a, int b) {
-		if (a > b) {
+		if (a < b) {
 			return a;
 		}
 		return b;
@@ -14,6 +14,13 @@ public class MyMath {
 			return minAB;
 		}
 		return c;
+	}
+	
+	public static int max(int a, int b) {
+		if (a > b) {
+			return a;
+		}
+		return b;
 	}
 	
 	public static int pow(int a, int b) {

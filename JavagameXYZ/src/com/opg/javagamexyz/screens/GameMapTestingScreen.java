@@ -1,17 +1,19 @@
 package com.opg.javagamexyz.screens;
 
 import com.artemis.World;
-import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 import com.opg.javagamexyz.JavagameXYZ;
-import com.opg.javagamexyz.artemis.EntityFactory;
+import com.opg.javagamexyz.artemis.MapGameEntityFactory;
 import com.opg.javagamexyz.artemis.systems.MapHudRenderSystem;
 import com.opg.javagamexyz.artemis.systems.MapRenderSystem;
 import com.opg.javagamexyz.artemis.systems.PlayerMapInputSystem;
+import com.opg.javagamexyz.artemis.systems.SpriteAnimationSystem;
 import com.opg.javagamexyz.artemis.systems.SpriteRenderSystem;
+import com.opg.javagamexyz.utils.MapTools;
 
 public class GameMapTestingScreen extends JavagameXYZScreen {
 	protected OrthographicCamera camera;
@@ -30,17 +32,20 @@ public class GameMapTestingScreen extends JavagameXYZScreen {
 		
 		world = new World();
 		
-		world.setManager(new GroupManager());
-		
 		mapRenderSystem = world.setSystem(new MapRenderSystem(camera), true);
 		spriteRenderSystem = world.setSystem(new SpriteRenderSystem(camera), true);
 		mapHudRenderingSystem = world.setSystem(new MapHudRenderSystem(), true);
 		
+		world.setSystem(new SpriteAnimationSystem());
 		world.setSystem(new PlayerMapInputSystem(camera));
 		
 		world.initialize();
 		
-		EntityFactory.createGameMap(world).addToWorld();
+		MapGameEntityFactory.createMap(world).addToWorld();
+		MapGameEntityFactory.createPlayer(world, 11, 14).addToWorld();
+		for (int i = 0; i < 100; i++) {
+			MapGameEntityFactory.createWarrior(world, MathUtils.random(MapTools.width() - 1), MathUtils.random(MapTools.height() - 1)).addToWorld();
+		}
 	}
 
 	@Override
@@ -60,6 +65,7 @@ public class GameMapTestingScreen extends JavagameXYZScreen {
 
 	@Override
 	public void resize(int width, int height) {
+		camera.setToOrtho(false, width, height);
 	}
 
 	@Override
