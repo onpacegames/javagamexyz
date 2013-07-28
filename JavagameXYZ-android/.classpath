@@ -8,5 +8,7 @@
 	<classpathentry exported="true" kind="lib" path="/JavagameXYZ/libs/bodyeditor-loader.jar" sourcepath="/JavagameXYZ/libs/bodyeditor-loader-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="/JavagameXYZ/libs/gdx.jar" sourcepath="/JavagameXYZ/libs/gdx-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="/JavagameXYZ/libs/tween-engine-api.jar" sourcepath="/JavagameXYZ/libs/tween-engine-api-sources.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

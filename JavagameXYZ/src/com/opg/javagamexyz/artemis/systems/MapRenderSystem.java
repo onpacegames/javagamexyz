@@ -67,8 +67,8 @@ public class MapRenderSystem extends EntityProcessingSystem {
 		for (int row = y0; row < y1; row++) {
 			for (int col = x0; col < x1 - 1; col += 2) {
 				x = col * MapTools.col_multiple;
-				y = (y1 - row - 1) * MapTools.row_multiple;
-				reg = textures.get(gameMap.map[row][col]);
+				y = row * MapTools.row_multiple;
+				reg = textures.get(gameMap.map[col][row]);
 				batch.draw(
 					reg,
 					x, y,
@@ -80,7 +80,7 @@ public class MapRenderSystem extends EntityProcessingSystem {
 				
 				x += MapTools.col_multiple;
 				y += MapTools.row_multiple / 2;
-				reg = textures.get(gameMap.map[row][col + 1]);
+				reg = textures.get(gameMap.map[col][row]);
 				batch.draw(
 					reg,
 					x, y,
@@ -93,8 +93,8 @@ public class MapRenderSystem extends EntityProcessingSystem {
 			if (x1 >= gameMap.width) {
 				int col = gameMap.width - 1;
 				x = col * MapTools.col_multiple;
-				y = (y1 - row - 1) * MapTools.row_multiple;
-				reg = textures.get(gameMap.map[row][col]);
+				y = row * MapTools.row_multiple;
+				reg = textures.get(gameMap.map[col][row]);
 				batch.draw(
 					reg,
 					x, y,
