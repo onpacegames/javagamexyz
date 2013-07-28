@@ -8,8 +8,9 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.opg.javagamexyz.JavagameXYZ;
 import com.opg.javagamexyz.artemis.EntityFactory;
-import com.opg.javagamexyz.artemis.systems.HudRenderSystem;
+import com.opg.javagamexyz.artemis.systems.MapHudRenderSystem;
 import com.opg.javagamexyz.artemis.systems.MapRenderSystem;
+import com.opg.javagamexyz.artemis.systems.PlayerMapInputSystem;
 import com.opg.javagamexyz.artemis.systems.SpriteRenderSystem;
 
 public class GameMapTestingScreen extends JavagameXYZScreen {
@@ -19,7 +20,7 @@ public class GameMapTestingScreen extends JavagameXYZScreen {
 	
 	protected MapRenderSystem mapRenderSystem;
 	protected SpriteRenderSystem spriteRenderSystem;
-	protected HudRenderSystem hudRenderingSystem;
+	protected MapHudRenderSystem mapHudRenderingSystem;
 	
 	public GameMapTestingScreen(Game game) {
 		super(game);
@@ -33,7 +34,9 @@ public class GameMapTestingScreen extends JavagameXYZScreen {
 		
 		mapRenderSystem = world.setSystem(new MapRenderSystem(camera), true);
 		spriteRenderSystem = world.setSystem(new SpriteRenderSystem(camera), true);
-		hudRenderingSystem = world.setSystem(new HudRenderSystem(camera), true);
+		mapHudRenderingSystem = world.setSystem(new MapHudRenderSystem(), true);
+		
+		world.setSystem(new PlayerMapInputSystem(camera));
 		
 		world.initialize();
 		
@@ -52,7 +55,7 @@ public class GameMapTestingScreen extends JavagameXYZScreen {
 		
 		mapRenderSystem.process();
 		spriteRenderSystem.process();
-		hudRenderingSystem.process();
+		mapHudRenderingSystem.process();
 	}
 
 	@Override
